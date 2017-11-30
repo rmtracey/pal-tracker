@@ -22,6 +22,8 @@ public class SecurityApiTest {
 
     @LocalServerPort
     private String port;
+
+    @Autowired
     private TestRestTemplate authorizedRestTemplate;
 
     @Autowired
@@ -38,14 +40,16 @@ public class SecurityApiTest {
 
     @Test
     public void unauthorizedTest() {
-        ResponseEntity<String> response = this.unAuthorizedRestTemplate.getForEntity("/", String.class);
+        ResponseEntity<String> response = this.unAuthorizedRestTemplate.
+                getForEntity("/", String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 
     @Test
     public void authorizedTest() {
-        ResponseEntity<String> response = this.authorizedRestTemplate.getForEntity("/", String.class);
+        ResponseEntity<String> response = this.authorizedRestTemplate.
+                getForEntity("/", String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
